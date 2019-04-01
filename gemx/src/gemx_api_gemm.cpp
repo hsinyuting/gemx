@@ -241,7 +241,16 @@ int main(int argc, char **argv)
   showTimeData("total", l_tp[0], l_tp[l_tpIdx]); l_tpIdx++;
   double l_timeApiInMs = -1;
   showTimeData("subtotalFpga", l_tp[2], l_tp[l_tpIdx], &l_timeApiInMs); l_tpIdx++; // Host->DDR, kernel, DDR->host
-  
+ 
+  std::cout<<"\n[INFO][hting1] POST show begin"<<std::endl; //Note: hting1: hardwire to show program[0] only
+  KargsType l_kargs;
+  l_kargs.load(l_program[0].getBaseInstrAddr(), 0);
+  GemmArgsType l_gemmArgs = l_kargs.getGemmArgs();
+  l_gemm.show(l_program[0], l_gemmArgs);
+  std::cout<<"\n[INFO][hting1] POST show end"<<std::endl;
+
+
+
   //############  Get the exact kernel time from HW cycle counters on the accelerator  ############
   float l_boardFreqMHz = getBoardFreqMHz(0);
   unsigned long int l_Ops = 2ull * l_M * l_N * l_K + l_M * l_N * 3;

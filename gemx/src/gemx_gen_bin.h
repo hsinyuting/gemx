@@ -610,9 +610,10 @@ class Mat
         T l_val = p_First;
         for (unsigned int row = 0; row < m_Rows; ++row) {
           for (unsigned int col = 0; col < ld(); ++col) {
-            getVal(row, col) = l_val;
-            l_val++;
-            l_val %= p_Max;
+//            getVal(row, col) = l_val;
+		getVal(row, col) = ((row == col)? 1: 0); //hting1
+//            l_val++;
+//            l_val %= p_Max;
           }
         }
       }
@@ -2349,6 +2350,9 @@ class GenGemm
       l_matC.multiplyAddScale(l_matA, l_matB, l_matX, p_postScale);
     }
     std::cout << "Added GEMM " << p_M << "x" << p_K << "x" << p_N << "  ";
+    std::cout << "\n[INFO][hting1] show GEMM begin"<<std::endl;
+    show(p_Program, l_gemmArgs); // hting1
+    std::cout << "[INFO][hting1] show GEMM end"<<std::endl;
   }
   void 
   addInstrFromFiles(
